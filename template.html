@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f7f8f5"><title>清晰 · 让好照片更清楚</title><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script></head>
+<body>
+<div id="boot-warning" role="alert">如果这里一直没有消失，说明当前软件只是在预览文件。请用 Chrome、Edge 或 Safari 浏览器打开网页版。</div>
+<header><a class="brand" href="#" aria-label="清晰首页"><span class="brand-icon">✳</span> 清晰<span class="brand-en">QINGXI</span></a><span class="privacy"><i></i> 图片仅在你的设备上处理</span></header>
+<main>
+<section class="intro"><span class="eyebrow">① 选照片　→　② 自动增强　→　③ 保存图片</span><h1>把模糊留在过去。<br><span>让照片，再清晰一点。</span></h1><p>选一张照片，自动变清晰，再保存。无需注册，无需上传。</p></section>
+<section class="workspace" aria-label="图片增强工作台">
+<div class="image-panel">
+<div id="dropzone" class="dropzone"><div class="upload-icon" aria-hidden="true">↥</div><h2>把照片放在这里</h2><p>拖拽图片到这里，或从设备中选择</p><button id="choose" class="primary">＋ 选择要变清晰的照片</button><span class="file-hint">支持 JPG、PNG、WebP · 单张最大 20 MB</span></div>
+<div id="editor" hidden><div class="image-toolbar"><span id="filename"></span><button id="replace" class="text-button">更换图片 ↗</button></div><div id="comparison" class="comparison"><img id="after" alt="增强后的照片"><div id="before-wrap"><img id="before" alt="原始照片"></div><span class="tag original">原图</span><span class="tag enhanced">增强后</span><div id="divider"><span>↔</span></div><input id="compare" type="range" min="0" max="100" value="50" aria-label="拖动对比原图和增强结果"></div><div class="image-info"><span id="dimensions"></span><span>拖动滑块，查看前后对比</span></div></div>
+<div id="busy" hidden><div class="spinner"></div><strong>正在打磨每一处细节…</strong><span>处理在本机完成，请稍候</span></div>
+</div>
+<aside><div class="settings-title"><span>✧</span><h2>清晰度增强</h2></div><p class="aside-description">一点调整，唤醒照片里的细节。</p><label class="field-label" for="strength">增强强度 <output id="strength-value">自然</output></label><input id="strength" type="range" min="0" max="100" value="45"><div class="range-labels"><span>轻柔</span><span>清晰</span><span>强力</span></div><span class="field-label">输出尺寸</span><div class="segmented" role="group" aria-label="输出尺寸"><button data-scale="1" aria-pressed="true">原尺寸</button><button data-scale="2" aria-pressed="false">2 倍放大</button></div><label class="toggle-row" for="denoise"><span>轻度降噪<small>柔化颗粒，保留自然质感</small></span><input id="denoise" type="checkbox" checked></label><div class="notice"><span>ⓘ</span><p>适合轻微模糊的照片。太糊的脸、看不清的文字，不能保证恢复。</p></div><button id="enhance" class="primary full" disabled>✧ 重新增强</button><button id="download" class="download full" disabled>↓ 保存清晰图片</button><button id="save-help" class="save-help" hidden>手机没保存成功？点这里长按保存图片</button><p class="export-hint">无水印 · PNG 原画质导出</p><p id="status" role="status" aria-live="polite">选择一张照片，开始体验</p></aside>
+</section>
+<section class="features"><div><span>01</span><h3>简单，就很好</h3><p>选图、增强、下载，三步完成。</p></div><div><span>02</span><h3>你的照片，只属于你</h3><p>不上传服务器，不保存你的照片。</p></div><div><span>03</span><h3>自然一点，清楚一点</h3><p>自由调节强度，找到喜欢的质感。</p></div></section>
+</main><dialog id="save-dialog"><button id="close-save" class="text-button">关闭 ✕</button><h2>长按下面的图片，选择保存</h2><p>电脑也可以右键图片，选择「图片另存为」。</p><img id="save-image" alt="可保存的增强照片"></dialog><footer><span>清晰 QINGXI</span><span>让值得记住的瞬间，更清楚。</span></footer><input id="file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+</body></html>

@@ -1,0 +1,12 @@
+import { readFile, writeFile } from 'node:fs/promises';
+const read = name => readFile(new URL(name, import.meta.url), 'utf8');
+const strip = code => code.replace(/^import .*;\s*$/gm, '').replace(/^export /gm, '');
+const processor = strip(await read('processor.js'));
+const worker = processor + '\n' + strip(await read('worker.js'));
+const engine = strip(await read('image-engine.js')).replace("new Worker(new URL('./worker.js', import.meta.url), { type: 'module' })", "makeInlineWorker()");
+const factory = `const INLINE_WORKER_SOURCE = ${JSON.stringify(worker)};\nfunction makeInlineWorker() { const url = URL.createObjectURL(new Blob([INLINE_WORKER_SOURCE], {type:'text/javascript'})); try { return new Worker(url); } finally { URL.revokeObjectURL(url); } }`;
+const script = `(()=>{ 'use strict';\n${factory}\n${processor}\n${engine}\n${strip(await read('app.js'))}\n})();`;
+const html = (await read('template.html')).replace('<link rel="stylesheet" href="/style.css">', `<style>${await read('style.css')}</style>`).replace('<script type="module" src="/app.js"></script>', `<script defer>document.addEventListener('DOMContentLoaded',function(){${script.replace(/<\/script/gi, '<\\/script')}\n});</script>`);
+await writeFile(new URL('index.html', import.meta.url), html);
+await writeFile(new URL('清晰-双击打开.html', import.meta.url), html);
+console.log('已生成可离线打开的 index.html 和 清晰-双击打开.html');
